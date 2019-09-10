@@ -182,7 +182,7 @@ class IPCamVideoAlarm():
         cv2.namedWindow(self.live_window)
 
     def initWindowMask(self):
-        print self.is_mask_window, self.asMask
+        # print self.is_mask_window, self.asMask
         if not self.is_mask_window and self.asMask:
             cv2.namedWindow(self.mask_window)
             self.is_mask_window = True
@@ -332,15 +332,11 @@ if __name__=="__main__":
     # load our serialized model from disk
     print("[INFO] Start Video Recording...")
 
-    sorgente = "C:\opencv\Video\Sorgenti"
-    #video = "Cam1_25-lug-2018-21-45-52.avi"
-    #video = "Pioggia.avi"
+ 
+    video_path = 'rtsp://admin:luca2006@vignale.duckdns.org/Streaming/Channels/102'
+    video_store = "/home/odroid/cv4/Registrazioni/"
 
-    video_path = os.path.join(sorgente, video)    
-    video_path = 'rtsp://admin:luca2006@vignale.duckdns.org/Streaming/Channels/101'
-    video_store = "C:\opencv\Registrazioni"
-
-    cam1 = IPCamVideoAlarm(video_path, video_store, "Cam1", 90.0, 0.5, False)
+    cam1 = IPCamVideoAlarm(video_path, video_store, "Cam1", 90.0, 1, False)
     # cam1.defineMask("C:\\opencv\\RaspyPerson\\MascheraCam1.jpg")
     # cam1.defineRoi("C:\\opencv\\RaspyPerson\\RoiCam1.jpg")
    
@@ -366,7 +362,7 @@ if __name__=="__main__":
                 exit(0)
             elif key == ord('r'):
                 if not cam1.recording.isRecording:
-                    print "Start recording"
+                    print ("Start recording")
                     cam1.recording.asRecording = True
                     cam1.recording.isRecording = True
                     cam1.recording.time_recording = 10 #default 2 sec
@@ -374,7 +370,7 @@ if __name__=="__main__":
                 else:
                     cam1.recording.time_recording = 2 #default 2 sec
                     cam1.recording.isRecording = False
-                    print "Stop recording"             
+                    print ("Stop recording")             
             elif key == ord('s'):
                 if not sleep:
                     sleep = True
@@ -401,13 +397,11 @@ if __name__=="__main__":
                 
             elif key == ord('z'): # salvo foto del frame corrente
                 cam1.sensitivity_value += 5
-                print cam1.sensitivity_value
+                # print cam1.sensitivity_value
 
             elif key == ord('x'): # salvo foto del frame corrente
                 cam1.sensitivity_value -= 5
-                print cam1.sensitivity_value
+                # print cam1.sensitivity_value
             elif key == ord('i'): # salvo foto del frame corrente
-                print cam1.sensitivity_value, cam1.num_defocus
-
-
-
+                # print cam1.sensitivity_value, cam1.num_defocus
+                pass
